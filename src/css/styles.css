@@ -18,3 +18,54 @@ body {
   max-width: 320px;
   margin-bottom: 16px;
 }
+
+.countries {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      padding: 0;
+      margin: 0;
+    }
+
+    .country {
+      width: 23%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+
+    .country__flag {
+      margin-bottom: 10px;
+    }
+
+    .country__name {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .country__capital,
+    .country__population,
+    .country__languages {
+      margin-bottom: 5px;
+    }
+
+    .country__languages {
+      font-style: italic;
+    }
+
+    .input {
+      margin-bottom: 20px;
+    }
+
+    .input__label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .input__field {
+      padding: 5px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
