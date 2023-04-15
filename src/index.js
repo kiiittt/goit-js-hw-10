@@ -11,6 +11,10 @@ const countryInfo = document.querySelector('.country-info');
 let countryName;
 
 searchInput.addEventListener('input', debounce(() => {
+    countryName = searchInput.value.trim();
+    if (countryName === '') {
+        return;
+    }
     fetchCountries() 
         .then((data) => renderCountriesList(data))
         .catch((error) => {
@@ -20,24 +24,21 @@ searchInput.addEventListener('input', debounce(() => {
         })
 }, DEBOUNCE_DELAY));
 
+
 function fetchCountries() {
-    countryName = searchInput.value;
-    countryName.trim();
-    return fetch(
-        `https://restcountries.com/v3.1/name/${countryName}`
-    ).then((response) => {
-        if (!response.ok) {
-            throw new Error(response.status);
-        }
-        return response.json();
-    })
+  countryName = searchInput.value.trim();
+  if (!countryName) {
+    return Promise.reject(new Error('Country name is empty'));
+  }
+  return fetch(`https://restcountries.com/v3.1/name/${countryName}`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(response.status);
+      }
+      return response.json();
+    });
 };
 
-fetchCountries()
-    .then((data) => renderCountriesList(data))
-    .catch((error) => {
-        Notiflix.Notify.failure('Oops, something went wrong')
-    })
 
 function renderCountriesList(data) {
   countryList.innerHTML = data.map((item) => {
@@ -65,3 +66,8 @@ function renderCountriesList(data) {
   }
 }
 
+fetchCountries()
+    .then((data) => renderCountriesList(data))
+    .catch((error) => {
+        Notiflix.Notify.failure('Oops, something went wrong')
+    })
